@@ -5,7 +5,7 @@
             <img [src]="article?.imageUrl" alt="Imagen del artículo">
         </div>
         <p [ngClass]="{'price': article?.isOnSale, 'unavailable-price': !article?.isOnSale}">
-            Precio: {{ article?.price | currency:'EUR' }}
+            Precio: {{ article?.price | currency:'EUR':'symbol':'1.2-2' }}
         </p>
         <div *ngIf="article?.isOnSale === true">
             <p>Cantidad en el carrito: {{ article?.quantityInCart }}</p>
