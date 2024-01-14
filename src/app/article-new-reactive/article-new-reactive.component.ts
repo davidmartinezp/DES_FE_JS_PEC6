@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NameArticleValidator } from './validators/name-article.validator';
 import { ArticleService } from '../article-service.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-article-new-reactive',
@@ -37,10 +38,10 @@ export class ArticleNewReactiveComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.articleForm.valid) {
       const newArticle = {
-        id: Date.now(), // Puedes ajustar la generación de IDs según tus necesidades
+        id: Date.now(),
         name: this.articleForm.value.nombre,
         price: this.articleForm.value.precio,
         imageUrl: this.articleForm.value.imageUrl,
@@ -48,20 +49,19 @@ export class ArticleNewReactiveComponent implements OnInit {
         quantityInCart: 0,
       };
 
-      this.articleService.create(newArticle).subscribe({
-        next: (response) => {
-          // Manejar la respuesta del servicio (puede ser éxito o error)
-          console.log('Artículo creado con éxito:', response);
-          // Mostrar mensaje de éxito
-          alert('Artículo creado con éxito');
-          // Resetear el formulario
-          this.articleForm.reset();
-        },
-        error: (error) => {
-          // Manejar errores del servicio
-          console.error('Error al crear el artículo:', error);
-        },
-      });
+      try {
+        const response = await firstValueFrom(this.articleService.create(newArticle));
+
+        // Manejar la respuesta del servicio
+        console.log('Artículo creado con éxito:', response);
+        // Mostrar mensaje de éxito
+        alert('Artículo creado con éxito');
+        // Resetear el formulario
+        this.articleForm.reset();
+      } catch (error) {
+        // Manejar errores del servicio
+        console.error('Error al crear el artículo:', error);
+      }
     } else {
       // Mostrar mensajes de error al usuario
       console.log('Formulario inválido');
