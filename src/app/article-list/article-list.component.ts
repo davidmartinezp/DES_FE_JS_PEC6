@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { ArticleService } from '../article-service.service';
+import { Article } from '../models/article.model';
 @Component({
   selector: 'app-article-list',
   template: `
@@ -16,46 +17,71 @@ import { Component } from '@angular/core';
   }
     `
 })
-export class ArticleListComponent {
+export class ArticleListComponent implements OnInit {
+  articles: Article[] = [];
 
-  incrementQuantity(articleId: number) {
-    const article = this.articles.find(a => a.id === articleId);
-    if (article) {
-      article.quantityInCart++;
-    }
+  constructor(private articleService: ArticleService) {}
+
+  ngOnInit(): void {
+    this.articleService.getArticles().subscribe((articles) => {
+      this.articles = articles;
+    });
   }
 
-  decrementQuantity(articleId: number) {
-    const article = this.articles.find(a => a.id === articleId);
-    if (article && article.quantityInCart > 0) {
-      article.quantityInCart--;
-    }
+  incrementQuantity(articleId: number): void {
+    this.articleService.changeQuantity(articleId, 1).subscribe((updatedArticle) => {
+      if (updatedArticle) {
+        // Actualizar la cantidad en el artículo local
+        const index = this.articles.findIndex((article) => article.id === articleId);
+        if (index !== -1) {
+          this.articles[index].quantityInCart = updatedArticle.quantityInCart;
+        }
+      } else {
+        // Manejar el caso de error (puede ser que el artículo no se encontró)
+      }
+    });
   }
 
-  articles = [
-    {
-      id: 1,
-      name: 'JavaScript y Angular: De los fundamentos del lenguaje al desarrollo de una aplicación web',
-      imageUrl: '../assets/JSYAngular.jpg',
-      price: 28.41,
-      isOnSale: true,
-      quantityInCart: 0
-    },
-    {
-      id: 2,
-      name: 'AngularJS',
-      imageUrl: '../assets/AngularJS.jpg',
-      price: 36.10,
-      isOnSale: false,
-      quantityInCart: 0
-    },
-    {
-      id: 3,
-      name: 'El gran libro de Angular',
-      imageUrl: '../assets/AngularGranLibro.jpg',
-      price: 23.56,
-      isOnSale: true,
-      quantityInCart: 0
-    }
-  ];
+  decrementQuantity(articleId: number): void {
+    this.articleService.changeQuantity(articleId, -1).subscribe((updatedArticle) => {
+      this.articleService.changeQuantity(articleId, -1).subscribe((updatedArticle) => {
+        if (updatedArticle) {
+          // Actualizar la cantidad en el artículo local
+          const index = this.articles.findIndex((article) => article.id === articleId);
+          if (index !== -1) {
+            this.articles[index].quantityInCart = updatedArticle.quantityInCart;
+          }
+        } else {
+          // Manejar el caso de error (puede ser que el artículo no se encontró)
+        }
+      });
+    });
+  }
+
+  // articles = [
+  //   {
+  //     id: 1,
+  //     name: 'JavaScript y Angular: De los fundamentos del lenguaje al desarrollo de una aplicación web',
+  //     imageUrl: '../assets/JSYAngular.jpg',
+  //     price: 28.41,
+  //     isOnSale: true,
+  //     quantityInCart: 0
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'AngularJS',
+  //     imageUrl: '../assets/AngularJS.jpg',
+  //     price: 36.10,
+  //     isOnSale: false,
+  //     quantityInCart: 0
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'El gran libro de Angular',
+  //     imageUrl: '../assets/AngularGranLibro.jpg',
+  //     price: 23.56,
+  //     isOnSale: true,
+  //     quantityInCart: 0
+  //   }
+  // ];
 }
