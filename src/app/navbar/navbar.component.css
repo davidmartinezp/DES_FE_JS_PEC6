@@ -1,0 +1,23 @@
+
+.navbar-nav .nav-item {
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .navbar-nav .nav-item:hover {
+    background-color: #e9ecef;
+  }
+  
+  .navbar-nav .nav-item.active {
+    background-color: #007bff; 
+  }
+  
+  .navbar-brand {
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .navbar-brand:hover {
+    color: #007bff; 
+  }
+  

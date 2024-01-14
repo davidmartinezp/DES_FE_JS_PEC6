@@ -1,0 +1,34 @@
+<form class="articleForm" (ngSubmit)="onSubmit()" #articleForm="ngForm">
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" name="nombre" class="form-control" [(ngModel)]="article.nombre" required />
+        <div *ngIf="(articleForm.submitted || articleForm.controls['nombre']?.touched ) && !articleForm.controls['nombre'].valid" class="error-message">
+            El nombre es obligatorio.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="precio">Precio:</label>
+        <input id="precio" name="precio" class="form-control" [(ngModel)]="article.precio" required
+            pattern="^\d+(\.\d{1,2})?$" />
+        <div *ngIf="(articleForm.submitted || articleForm.controls['precio']?.touched ) && !articleForm.controls['precio'].valid" class="error-message">
+            El precio debe ser un número válido con hasta dos decimales.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="imageUrl">URL de la imagen:</label>
+        <input id="imageUrl" name="imageUrl" class="form-control" [(ngModel)]="article.imageUrl" required
+            pattern="^(http|https):\/\/[a-zA-Z0-9]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9]*)?$" />
+        <div *ngIf="(articleForm.submitted || articleForm.controls['imageUrl']?.touched ) && !articleForm.controls['imageUrl'].valid" class="error-message">
+            La URL de la imagen debe ser válida (ejemplo: https://www.ejemplo.com/imagen.jpg).
+        </div>
+    </div>
+    <div class="form-check">
+        <label for="enVenta">¿Está en Venta?</label>
+        <input id="enVenta" name="enVenta" type="checkbox" class="form-check-input" [(ngModel)]="article.enVenta">
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary" [disabled]="articleForm.invalid">Guardar</button>
+    </div>
+</form>

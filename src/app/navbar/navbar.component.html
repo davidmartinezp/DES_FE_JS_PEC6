@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" (click)="onOptionSelected('Inicio')">Inicio</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item" (click)="onOptionSelected('Artículos')">
+        <a class="nav-link">Artículos</a>
+      </li>
+      <li class="nav-item" (click)="onOptionSelected('Nuevo artículo template')">
+        <a class="nav-link">Nuevo artículo template</a>
+      </li>
+      <li class="nav-item" (click)="onOptionSelected('Nuevo artículo reactivo')">
+        <a class="nav-link">Nuevo artículo reactivo</a>
+      </li>
+    </ul>
+  </div>
+</nav>

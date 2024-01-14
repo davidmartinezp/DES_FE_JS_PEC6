@@ -1,0 +1,22 @@
+<main class="main">
+  <!-- <div>
+  <app-article-item [article]="miArticulo1"></app-article-item>
+  <app-article-item [article]="miArticulo2"></app-article-item>
+  <app-article-item [article]="miArticulo3"></app-article-item>
+</div>
+app.component.html -->
+  <app-navbar (optionSelected)="onNavbarOptionSelected($event)"></app-navbar>
+
+  <div class="container mt-4">
+    <app-article-list *ngIf="selectedOption === 'Inicio' || selectedOption === 'Artículos'"></app-article-list>
+    <app-article-new-template *ngIf="selectedOption === 'Nuevo artículo template'"></app-article-new-template>
+    <app-article-new-reactive *ngIf="selectedOption === 'Nuevo artículo reactivo'"></app-article-new-reactive>
+  </div>
+
+  <!-- <div>
+  <app-article-list></app-article-list>
+</div> -->
+
+</main>
+
+<router-outlet></router-outlet>

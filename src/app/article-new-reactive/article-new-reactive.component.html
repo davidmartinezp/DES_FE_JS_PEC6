@@ -1,0 +1,42 @@
+<form class="articleForm" [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" formControlName="nombre">
+        <div *ngIf="shouldShowError('nombre')" class="error-message">
+            El nombre es obligatorio y no puede ser 'Prueba', 'Test', 'Mock' ni 'Fake'.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="precio">Precio:</label>
+        <input type="number" class="form-control" id="precio" formControlName="precio">
+        <div *ngIf="articleForm.get('precio')?.touched && articleForm.get('precio')?.errors?.['required']"
+            class="error-message">
+            Precio es obligatorio.
+        </div>
+        <div *ngIf="shouldShowError('precio')" class="error-message">
+            Precio debe ser numérico.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="imageUrl">URL de la imagen:</label>
+        <input type="text" class="form-control" id="imageUrl" formControlName="imageUrl">
+        <div *ngIf="articleForm.get('imageUrl')?.touched && articleForm.get('imageUrl')?.errors?.['required']"
+            class="error-message">
+            URL de la imagen es obligatoria.
+        </div>
+        <div *ngIf="shouldShowError('imageUrl')" class="error-message">
+            La URL de la imagen debe ser válida (ejemplo: https://www.ejemplo.com/imagen.jpg).
+        </div>
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="enVenta" formControlName="enVenta">
+        <label class="form-check-label" for="enVenta">¿Está en Venta?</label>
+    </div>
+
+    <div>
+        <button type="submit" [disabled]="!articleForm.valid" class="btn btn-primary">Guardar</button>
+    </div>
+</form>

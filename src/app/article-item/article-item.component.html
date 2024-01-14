@@ -1,0 +1,18 @@
+<div>
+    <div [ngClass]="{'no-on-sale': !article?.isOnSale}" class="product">
+        <h2>{{ article?.name }}</h2>
+        <div class="imageContainer">
+            <img [src]="article?.imageUrl" alt="Imagen del artículo">
+        </div>
+        <p [ngClass]="{'price': article?.isOnSale, 'unavailable-price': !article?.isOnSale}">
+            Precio: {{ article?.price | currency:'EUR' }}
+        </p>
+        <div *ngIf="article?.isOnSale === true">
+            <p>Cantidad en el carrito: {{ article?.quantityInCart }}</p>
+            <div class="buttons">
+                <button (click)="incrementQuantity()">Añadir</button>
+                <button (click)="decrementQuantity()" [disabled]="article?.quantityInCart === 0">Borrar</button>
+            </div>
+        </div>
+    </div>
+</div>

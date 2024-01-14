@@ -1,0 +1,49 @@
+
+.price {
+    color: black;
+    font-weight: bold;
+}
+
+.unavailable-price {
+    color: grey; 
+}
+
+.product{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    margin-bottom: 20px; 
+    border-radius: 10px; 
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 650px;
+}
+.no-on-sale{
+    background-color: lightgrey;
+}
+
+.imageContainer
+{
+    height: 400px;
+    display: flex;
+    background-color: lightblue;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+img{
+    width: 300px;
+    object-fit: contain;
+}
+h2{
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+    overflow: hidden;
+    height: 2.5em;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
